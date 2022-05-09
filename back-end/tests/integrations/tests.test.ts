@@ -1,15 +1,12 @@
 import supertest from "supertest";
-import { seed } from "../prisma/seed";
-import app from "../src/app.js";
-import { prisma } from "../src/database.js";
-import { createSong } from "./factories/recommendationFactory";
+import { seed } from "../../prisma/seed";
+import app from "../../src/app.js";
+import { prisma } from "../../src/database.js";
+import { createSong } from "../factories/recommendationFactory";
 
 describe("GET AND INSERT A RECOMMENDATION", () => {
-  beforeEach(async () => {
-    await prisma.$executeRaw`TRUNCATE TABLE recommendations CASCADE`;
-  });
-
   it("should return 201 and successfully insert a recommendation", async () => {
+    await prisma.$executeRaw`TRUNCATE TABLE recommendations`;
     const song = await createSong();
 
     const res = await supertest(app).post("/recommendations").send(song);

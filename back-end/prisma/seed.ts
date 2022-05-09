@@ -7,8 +7,10 @@ type VideoObject = {
 };
 
 export async function seed() {
-  await prisma.recommendation.create({
-    data: {
+  await prisma.recommendation.upsert({
+    where: { id: 5 },
+    update: {},
+    create: {
       id: 5,
       name: "Hindi Zahra - Beautiful Tango",
       youtubeLink: "https://www.youtube.com/watch?v=2-8n6rTH6Ns",
